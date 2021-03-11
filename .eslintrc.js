@@ -12,5 +12,6 @@ module.exports = {
   },
   'rules': {
     'new-cap': 0,
+    'max-len': 90,
   },
 };
