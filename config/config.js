@@ -7,6 +7,7 @@ const config = {
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     database: process.env.DATABASE,
+    quoteIdentifiers: false,
   },
   test: {
     dialect: process.env.DIALECT,
@@ -14,6 +15,7 @@ const config = {
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     database: process.env.DATABASE,
+    quoteIdentifiers: false,
   },
   production: {
     dialect: process.env.DIALECT,
@@ -21,6 +23,7 @@ const config = {
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     database: process.env.DATABASE,
+    quoteIdentifiers: false,
   },
 };
 
