@@ -86,7 +86,6 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'users',
     timestamps: false,
   };
-
   User.init(fields, options);
   return User;
 };
