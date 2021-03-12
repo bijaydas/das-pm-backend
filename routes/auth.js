@@ -99,4 +99,15 @@ router.post('/login', async (req, res) => {
   });
 });
 
+router.get('/logout/:sessionId', async (req, res) => {
+  await sessions.update({logout_at: new Date()}, {
+    where: {
+      session_id: req.params.sessionId,
+    },
+  });
+  return res.status(200).json({
+    message: 'Successfully logged out',
+  });
+});
+
 module.exports = router;
