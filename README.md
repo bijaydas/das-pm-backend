@@ -1,5 +1,6 @@
 ## Das Password Manager Backend
 
+### Introduction
 Das Password Manager is a open source password manager extension for [Google Chrome](https://www.google.com/chrome). So please feel free to copy, modify the source code and suggest new changes.
 
 This project is the backend of Das Password Manager. The frontend section of the project is [here](https://github.com/bijaydas/das-pm-dashboard)
