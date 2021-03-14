@@ -2,7 +2,7 @@ const {isEmail} = require('../system/general');
 
 module.exports.quickSignupValidation = (req, res, next) => {
   const {email, password} = req.body;
-  if (!isEmail(email)) {
+  if (email && !isEmail(email)) {
     return res.status(403).json({
       message: 'Invalid email',
       status: 403,
@@ -20,7 +20,7 @@ module.exports.quickSignupValidation = (req, res, next) => {
 
 module.exports.loginFieldsValidation = (req, res, next) => {
   const {email, password} = req.body;
-  if (!isEmail(email)) {
+  if (email && !isEmail(email)) {
     return res.status(403).json({
       message: 'Invalid email',
       status: 403,
