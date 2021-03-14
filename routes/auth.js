@@ -3,7 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const {isValidDXToken} = require('../middlewares/authMiddlewares');
-const {quickSignupValidation} = require('../middlewares/requestsMiddlewares');
+const {quickSignupValidation,loginFieldsValidation} = require('../middlewares/requestsMiddlewares');
 const {User, sessions} = require('../models');
 const {hashPassword, comparePassword} = require('../system/hash');
 const {Op} = require('sequelize');
@@ -59,7 +59,7 @@ router.post('/signup/quick', quickSignupValidation, async (req, res) => {
   };
 });
 
-router.post('/login', async (req, res) => {
+router.post('/login', loginFieldsValidation, async (req, res) => {
   const {email, password} = req.body;
   const result = await User.findOne({
     where: {
