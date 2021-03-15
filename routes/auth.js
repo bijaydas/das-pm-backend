@@ -61,7 +61,12 @@ router.post('/signup/quick', quickSignupValidation, async (req, res) => {
 
 router.post('/login', loginFieldsValidation, async (req, res) => {
   const {email, password} = req.body;
-  const result = await User.findOne({
+  const attributes = {
+    attributes: {
+      exclude: ['id', 'deleted', 'active'],
+    },
+  };
+  const result = await User.findOne(attributes, {
     where: {
       [Op.and]: [
         {primary_email: email},
@@ -90,12 +95,15 @@ router.post('/login', loginFieldsValidation, async (req, res) => {
     login_at: new Date(),
     logout_at: null,
   });
+  result['session_id'] = sessionId;
+  const string = JSON.stringify(result);
+  const data = JSON.parse(string);
+  delete data.password;
+  data['session_id'] = sessionId;
   return res.status(200).json({
     message: 'Login successful',
     status: 200,
-    data: {
-      session_id: sessionId,
-    },
+    data,
   });
 });
 
