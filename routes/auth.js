@@ -1,13 +1,15 @@
 'use strict';
 
+require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 const {isValidDXToken} = require('../middlewares/authMiddlewares');
-const {quickSignupValidation,loginFieldsValidation} = require('../middlewares/requestsMiddlewares');
+const {quickSignupValidation, loginFieldsValidation} = require('../middlewares/requestsMiddlewares');
 const {User, sessions} = require('../models');
 const {hashPassword, comparePassword} = require('../system/hash');
 const {Op} = require('sequelize');
 const uuid = require('uuid');
+const jwt = require('jsonwebtoken');
 
 // Overwall API auth with Das Password Manager Token
 router.use(isValidDXToken);
@@ -97,13 +99,20 @@ router.post('/login', loginFieldsValidation, async (req, res) => {
   });
   result['session_id'] = sessionId;
   const string = JSON.stringify(result);
-  const data = JSON.parse(string);
-  delete data.password;
-  data['session_id'] = sessionId;
+  
+  const payload = JSON.parse(string);
+  payload['ssid'] = sessionId;
+  delete payload.password;
+  delete payload.created_at;
+  delete payload.updated_at;
+  
+  const token = jwt.sign(payload, process.env.JWT_SECRET_KEY, {expiresIn: '1h'});
+  payload['token'] = token;
+  
   return res.status(200).json({
     message: 'Login successful',
     status: 200,
-    data,
+    data: payload,
   });
 });
 

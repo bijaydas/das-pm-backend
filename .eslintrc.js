@@ -14,5 +14,6 @@ module.exports = {
     'new-cap': 0,
     'max-len': 0,
     'require-jsdoc': 0,
+    'no-trailing-spaces': 0,
   },
 };
